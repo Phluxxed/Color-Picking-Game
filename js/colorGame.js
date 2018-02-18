@@ -4,8 +4,24 @@ var pickedColor = pickColor();
 var colorDisplay = document.querySelector("#colorDisplay");
 var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
+var resetButton = document.querySelector("#reset");
 
 colorDisplay.textContent = pickedColor;
+
+resetButton.addEventListener("click", function() {
+    //Generate new colors
+    colors = generateRandomColors(6);
+    //Pick new random color from arr
+    pickedColor = pickColor();
+    //Change colorDisplay to match picked color
+    colorDisplay.textContent = pickedColor;
+    //Change colors of squares on page
+    for (var i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = colors[i];
+    }
+    h1.style.backgroundColor = "#5e5e5e";
+    this.textContent = "New Colors";
+});
 
 for (var i = 0; i < squares.length; i++) {
     //Add initial colors to squares
@@ -18,11 +34,12 @@ for (var i = 0; i < squares.length; i++) {
         //compare color to picked color
         if (clickedColor === pickedColor) {
             messageDisplay.textContent = "Correct!";
+            resetButton.textContent = "Play again?";
             changeColors(clickedColor);
             h1.style.backgroundColor = clickedColor;
         }
         else {
-            this.style.backgroundColor = "#232323";
+            this.style.backgroundColor = "#5e5e5e";
             messageDisplay.textContent = "Try again!";
         }
     });
